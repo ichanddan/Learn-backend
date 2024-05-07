@@ -23,6 +23,24 @@ app.post('/user', async(req , res)=>{
     }
 })
 
+
+app.post("/user/:UserT", async (req, res)=>{
+    try {
+        const UserT = req.params.UserT;
+        if (UserT == "Admin" || UserT == "Seller" || UserT == "User") {
+            const Data = await User.find({userType:UserT})
+            res.status(200).json(Data)
+            console.log("Data fatched", Data)
+        } else {
+            console.log("User Type not find")
+        }
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+
+
 app.get('/user', async (req , res)=>{
     try {
         const data = await User.find()
