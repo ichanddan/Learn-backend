@@ -1,9 +1,7 @@
 import express from "express";
 import { User } from "../Models/user.models.js";
-import bodyParser from "body-parser";
 
 const route = express.Router();
-route.use(bodyParser.json());
 
 route.post("/user", async (req, res) => {
   try {
@@ -17,7 +15,7 @@ route.post("/user", async (req, res) => {
   }
 });
 
-route.post("/user/:UserT", async (req, res) => {
+route.get("/user/:UserT", async (req, res) => {
   try {
     const UserT = req.params.UserT;
     if (UserT == "Admin" || UserT == "Seller" || UserT == "User") {
