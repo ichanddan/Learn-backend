@@ -40,4 +40,35 @@ route.get("/user", async (req, res) => {
   }
 });
 
+
+
+route.delete("/user/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const respons = await User.findByIdAndDelete(id);
+    if (!respons) {
+      console.log("User is not find", id);
+      return res.status(404).json({ message: "user is not find" });
+    }
+    console.log("user is delete", id);
+    res.status(200).json({message:"delte suscesfuly"})
+  } catch (error) {
+    console.log("faceing somne issuse", error);
+  }
+});
+
+route.patch("/user/:id", async (req, res)=>{
+  try {
+    const updted_data =req.body
+    const id = req.params.id;
+    const respons = await User.findByIdAndUpdate(id, updted_data)
+    res.status(200).json(respons)
+    console.log("user update")
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+
+
 export default route;
