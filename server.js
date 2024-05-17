@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./DB/index.js";
 import Home from "./Routes/home.routes.js";
-import Signup from "./Routes/signup.routes.js";
+import Signup from "./Routes/user.routes.js";
 import bodyParser from "body-parser";
 
 
