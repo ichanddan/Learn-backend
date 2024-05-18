@@ -4,6 +4,7 @@ import connectDB from "./DB/index.js";
 import Home from "./Routes/home.routes.js";
 import Signup from "./Routes/user.routes.js";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 
 // comfig dotenv
@@ -13,7 +14,7 @@ dotenv.config();
 const app = express();
 const Port = process.env.PORT || 8000;
 app.use(bodyParser.json());
-
+app.use(cookieParser)
 
 // routes section
 app.use("/", Home);

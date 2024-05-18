@@ -67,4 +67,13 @@ const findbyIDandUpdate = async (req, res)=>{
     }
   }
   
-export {Signup, FundUserType, getUserData, deleteUserData, findbyIDandUpdate}
+const Login = async (req, res)=>{
+  const {Number,Password}= req.body
+  try {
+    const find = await User.findOne({Number,Password})
+    res.status(200).json(find);
+  } catch (error) {
+    console.log(error)
+  }
+}
+export {Signup, FundUserType, getUserData, deleteUserData, findbyIDandUpdate, Login}
