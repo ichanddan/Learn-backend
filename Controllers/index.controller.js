@@ -1,4 +1,7 @@
 import { User } from "../Models/user.models.js";
+import { v4 as uuidv4 } from 'uuid';
+import { setUser } from "../Service/auth.js";
+ 
 
 
 // Signup controller
@@ -67,13 +70,19 @@ const findbyIDandUpdate = async (req, res)=>{
     }
   }
   
-const Login = async (req, res)=>{
-  const {Number,Password}= req.body
+const Login = async (req, res) => {
+  const { Number, Password } = req.body;
   try {
-    const find = await User.findOne({Number,Password})
-    res.status(200).json(find);
+    const user = await User.findOne({ Number, Password });
+    if (!user) {
+      console.log("Number or password wrong");
+    }
+    const sissionId = uuidv4();
+    setUser(sissionId, user);
+    res.cookie("uid", sissionId);
+    res.redirect("/")
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 export {Signup, FundUserType, getUserData, deleteUserData, findbyIDandUpdate, Login}

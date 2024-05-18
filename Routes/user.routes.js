@@ -4,7 +4,7 @@ import { FundUserType, Login, Signup, deleteUserData, findbyIDandUpdate, getUser
 
 const route = express.Router();
 
-route.post("/user", Signup);
+// route.post("/user", Signup);
 route.post("/login", Login);
 route.get("/user/:UserT", FundUserType);
 route.get("/user", getUserData);
