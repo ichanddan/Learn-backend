@@ -9,7 +9,7 @@ passport.use(new Lpassport(async(username, password, done)=>{
       const user = await User.findOne({username: username})
       if (!user) 
         return done(null , false, {message:"invelide username or passwor"})
-      const isPasswordMatch = user.Password===password ? true :false;
+      const isPasswordMatch = user.comparePassword(password)
       if (isPasswordMatch) {
         return done(null, user)
       }else{
