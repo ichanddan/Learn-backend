@@ -14,7 +14,7 @@ dotenv.config();
 const app = express();
 const Port = process.env.PORT || 8000;
 app.use(bodyParser.json());
-// app.use(cookieParser)
+// app.use(cookieParser())
 
 // routes section
 app.use("/", Home);
