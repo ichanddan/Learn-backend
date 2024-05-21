@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./DB/index.js";
-import Home from "./Routes/home.routes.js";
 import user from "./Routes/user.routes.js";
 import bodyParser from "body-parser";
 import { passport } from "./Middleware/auth.js";
@@ -23,7 +22,6 @@ app.use(passport.initialize())
 const auth = passport.authenticate('local', {session:false})
 
 // routes section
-app.use("/", auth , Home);
 app.use("/", user);
 
 // conaction Database
