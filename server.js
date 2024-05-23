@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import connectDB from "./DB/index.js";
 import user from "./Routes/user.routes.js";
 import bodyParser from "body-parser";
-import { passport } from "./Middleware/auth.js";
 
 
 
@@ -18,8 +17,6 @@ app.use(bodyParser.json());
 // app.use(cookieParser())
 
 
-app.use(passport.initialize())
-const auth = passport.authenticate('local', {session:false})
 
 // routes section
 app.use("/", user);

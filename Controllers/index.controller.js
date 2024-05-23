@@ -1,26 +1,26 @@
 import { User } from "../Models/user.models.js";
-import { v4 as uuidv4 } from "uuid";
-import { setUser } from "../Service/auth.js";
-import {jwtauth, genToken} from '../Middleware/jwt.auth.js'
+import { genToken } from '../Middleware/jwt.auth.js'
+
+
+
+
 // Signup controller
 const Signup = async (req, res) => {
   try {
     const data = req.body;
-    const newda = new User(data);
-    const respons = await newda.save();
-    const payload = {
-      id: respons.id,
-      username: respons.username
+    const newUser = new User(data);
+    const response = await newUser.save();
+    const paylod = {
+      id: response.id,
+      username: response.username
     }
-    const token = genToken(payload);
-    res.status(200).json({ respons: respons, token: token });
-
-    console.log("Data send succesfully", respons);
+    const token = await genToken(paylod)
+    res.status(200).json({ message: "Signup successfully" , token: token});
   } catch (error) {
-    console.log("Data not send", error);
+    console.log("Signup failed", error);
+    res.status(500).json({ message: "Signup failed", error: error.message });
   }
 };
-
 
 
 const getUserData = async (req, res) => {
@@ -61,24 +61,27 @@ const findbyIDandUpdate = async (req, res) => {
 };
 
 const Login = async (req, res) => {
-  const { Number, Password } = req.body;
-  const user = await User.findOne({ Number, Password });
-  if (!user) {
-    return res.render("index", {
-      error: " number or password wrong",
-    });
+  try {
+    const { username, password } = req.body;  // Fixed variable names
+    const user = await User.findOne({ username });  // Remove password from query
+
+    if (!user || !(await user.comparePassword(password))) {  // Use comparePassword properly
+      return res.status(401).json({ message: "Username or password wrong" });  // Correct status code
+    }
+
+    // Generate token
+    const payload = {
+      id: user.id,
+      username: user.username
+    }; 
+    const token = genToken(payload);
+
+    res.status(200).json({ message: "Login successful", token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });  // Proper error response
   }
-  const sissionId = uuidv4();
-  setUser(sissionId, user);
-  res.cookie("uid", sissionId);
-  console.log("login");
-  res.redirect("/");
 };
 
-export {
-  Signup,
-  getUserData,
-  deleteUserData,
-  findbyIDandUpdate,
-  Login,
-};
+
+export { Signup, getUserData, deleteUserData, findbyIDandUpdate, Login };
