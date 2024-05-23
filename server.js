@@ -29,13 +29,6 @@ connectDB();
 
 
 
-app.set('view engine', 'ejs');
-app.get('/index', (req, res) => {
-  res.render('index', { title: 'Server-Side Rendering Example', message: 'Hello, World!' });
-});
-
-
-
 // app listen
 
 app.listen(Port, () => {
