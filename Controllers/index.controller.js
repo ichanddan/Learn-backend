@@ -85,5 +85,18 @@ const Login = async (req, res) => {
   }
 };
 
+// Profile by token 
+const Profile =async (req,res) =>{
+  try {
+    const data = req.user;
+    const userId = data.id;
+    const user = await User.findById(userId);
+    res.status(201).json({user: user})
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
 
-export { Signup, getUserData, deleteUserData, findbyIDandUpdate, Login };
+
+export { Signup, getUserData, deleteUserData, findbyIDandUpdate, Login, Profile };
