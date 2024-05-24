@@ -1,5 +1,6 @@
 import { User } from "../Models/user.models.js";
-import { genToken } from '../Middleware/jwt.auth.js'
+import { genToken } from '../Middleware/jwt.auth.js';
+import bcrypt from 'bcrypt';
 
 
 
@@ -62,17 +63,18 @@ const findbyIDandUpdate = async (req, res) => {
 
 const Login = async (req, res) => {
   try {
-    const { username, password } = req.body;  // Fixed variable names
-    const user = await User.findOne({ username });  // Remove password from query
-
-    if (!user || !(await user.comparePassword(password))) {  // Use comparePassword properly
-      return res.status(401).json({ message: "Username or password wrong" });  // Correct status code
+    const { username, password } = req.body; 
+    const user = await User.findOne({ username }); 
+    const passwordMatch = await bcrypt.compare(password, user.Password);
+    if (!user || !passwordMatch) {  
+      return res.status(401).json({ message: "Username or password wrong" }); 
     }
 
     // Generate token
     const payload = {
       id: user.id,
-      username: user.username
+      username: user.username,
+      password: user.Password
     }; 
     const token = genToken(payload);
 
