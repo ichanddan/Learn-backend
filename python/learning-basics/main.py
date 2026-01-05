@@ -26,3 +26,14 @@ print(const[2])
 print("sLICING")
 slic = "asdfgsdfghfdsasdfghjgfdsaSDFGHJ"
 print(slic[2:8])
+# Nagative in index working similer with using - 
+
+
+# Extra String Funcation 
+array = 'asdfghjgfdsasdfghjgfdsaSDFGHJGFDSAsdfghjk'
+
+print(array.endswith('zg')) # this is return boolean becurse of he is check only your last value if metched then true else false
+print(array.capitalize()) # this function capital only first letter
+print(array.replace('a','M')) # just replace character on string
+print(array.find('SDFGH'))
+print(array.count('f'))
