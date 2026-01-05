@@ -10,13 +10,19 @@ print(st + string)
 
 # len funcation for get lenght of string
 print(len(st))
-print("Final String length",len(st+string))
+print("Final String length", len(st + string))
 
 
 # learn about indexing it is working like js starting with 0
 
-const = 'chandan'
+const = "chandan"
 print(const[2])
 
-# but we can assing value on index like this formate 
+# but we can assing value on index like this formate
 # const[2] = 'sadf'
+
+
+# Slicing
+print("sLICING")
+slic = "asdfgsdfghfdsasdfghjgfdsaSDFGHJ"
+print(slic[2:8])
