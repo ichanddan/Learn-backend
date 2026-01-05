@@ -37,3 +37,14 @@ print(array.capitalize()) # this function capital only first letter
 print(array.replace('a','M')) # just replace character on string
 print(array.find('SDFGH'))
 print(array.count('f'))
+
+
+# conditional statement 
+age = 14
+
+if(age >= 40):
+    print('you are aplicable for this funcation')
+elif(age <= 18):
+    print('you are not for able for mirage')
+else:
+    print('tere se na hoga bhai')
